@@ -2,7 +2,9 @@ package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.services;
 
 import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain.Fruit;
 import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.repository.FruitRepository;
+
 import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +50,13 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public Fruit getOneFruit(long id) throws EntityNotFoundException{
-        return fruitRepository.getReferenceById(id);
+        Optional<Fruit> fruit = fruitRepository.findById(id);
+        if(fruit.isPresent()){
+            return fruit.get();
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
     }
 
     @Override

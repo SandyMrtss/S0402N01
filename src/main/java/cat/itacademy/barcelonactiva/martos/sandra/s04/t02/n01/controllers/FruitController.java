@@ -2,14 +2,16 @@ package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.controllers;
 
 import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain.Fruit;
 import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.services.FruitService;
+
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.*;
+
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
-//CRUD: create read update delete
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
@@ -19,42 +21,55 @@ public class FruitController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> createFruit(@RequestBody Fruit fruit){
-        boolean created = fruitService.addFruit(fruit);
-        if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<HttpStatus> createFruit(@Valid @RequestBody Fruit fruit){
+        try{
+            boolean created = fruitService.addFruit(fruit);
+            if(created){
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        catch (ValidationException ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<HttpStatus> updateFruit(@PathVariable long id, @RequestBody Fruit fruit){
+    public ResponseEntity<HttpStatus> updateFruit(@PathVariable("id") long id, @Valid @RequestBody Fruit fruit){
+        Fruit _fruit;
         try{
-            Fruit _fruit = fruitService.getOneFruit(id);
+            _fruit = fruitService.getOneFruit(id);
+        }
+        catch (EntityNotFoundException ex){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try {
             _fruit.setName(fruit.getName());
             _fruit.setAmountKg(fruit.getAmountKg());
             if(fruitService.updateFruit(_fruit)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            else throw new EntityNotFoundException();
+            else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        catch (EntityNotFoundException ex){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        catch (ValidationException ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteFruit(@PathVariable() long id){
+    public ResponseEntity<HttpStatus> deleteFruit(@PathVariable("id") long id){
         boolean created = fruitService.deleteFruit(id);
         if(created){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("/getOne/{id}")
-    public ResponseEntity<Fruit> getOne(@PathVariable() long id){
+    public ResponseEntity<Fruit> getOne(@PathVariable("id") long id){
         try{
             Fruit fruit = fruitService.getOneFruit(id);
             return new ResponseEntity<>(fruit, HttpStatus.OK);
@@ -77,5 +92,4 @@ public class FruitController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

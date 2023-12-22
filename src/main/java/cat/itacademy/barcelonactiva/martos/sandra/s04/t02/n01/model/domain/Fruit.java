@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name="fruits")
@@ -8,8 +9,12 @@ public class Fruit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(nullable = false)
+    @NotEmpty(message = "Name cannot be empty nor null")
     private String name;
-    @Column(name="amount")
+    @NotNull(message = "Amount cannot be empty")
+    @Column(nullable = false)
     private int amountKg;
 
     public Fruit(){
