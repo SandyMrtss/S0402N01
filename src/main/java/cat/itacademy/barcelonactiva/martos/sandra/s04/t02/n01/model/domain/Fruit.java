@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name="fruits")
+@Table(name="fruits", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Fruit {
+    //TODO manage validation, always throws internal server error
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -13,8 +14,10 @@ public class Fruit {
     @Column(nullable = false)
     @NotEmpty(message = "Name cannot be empty nor null")
     private String name;
-    @NotNull(message = "Amount cannot be empty")
+
     @Column(nullable = false)
+    @NotNull(message = "Amount cannot be null")
+    @Min(message = "Can't have negative amount", value = 0)
     private int amountKg;
 
     public Fruit(){
