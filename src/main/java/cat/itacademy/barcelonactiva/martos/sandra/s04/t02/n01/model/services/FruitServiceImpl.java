@@ -23,13 +23,8 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public boolean updateFruit(Fruit fruit) {
-        try{
-            fruitRepository.save(fruit);
-            return true;
-        }
-        catch (Exception ex){
-            return false;
-        }
+        fruitRepository.save(fruit);
+        return true;
     }
 
     @Override

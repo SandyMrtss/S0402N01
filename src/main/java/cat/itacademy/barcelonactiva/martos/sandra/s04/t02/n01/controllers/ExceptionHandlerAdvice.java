@@ -13,7 +13,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex){
-        return ResponseEntity.badRequest().body("Input not valid \n" + ex.getMessage());
+        return ResponseEntity.badRequest().body("Input not valid");
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
