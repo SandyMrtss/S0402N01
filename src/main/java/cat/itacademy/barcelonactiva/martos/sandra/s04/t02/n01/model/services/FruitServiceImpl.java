@@ -17,13 +17,8 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public boolean addFruit(Fruit fruit) {
-        try{
-            fruitRepository.save(fruit);
-            return true;
-        }
-        catch (Exception ex){
-            return false;
-        }
+        fruitRepository.save(fruit);
+        return true;
     }
 
     @Override
@@ -39,12 +34,13 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public boolean deleteFruit(long id) {
-        try{
+        Optional<Fruit> fruit = fruitRepository.findById(id);
+        if(fruit.isPresent()){
             fruitRepository.deleteById(id);
             return true;
         }
-        catch (Exception ex){
-            return false;
+        else{
+            throw new EntityNotFoundException();
         }
     }
 
