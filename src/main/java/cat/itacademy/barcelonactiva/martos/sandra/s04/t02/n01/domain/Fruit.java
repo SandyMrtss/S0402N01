@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain;
+package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

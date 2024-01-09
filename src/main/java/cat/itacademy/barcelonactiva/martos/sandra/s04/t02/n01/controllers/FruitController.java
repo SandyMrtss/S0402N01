@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.controllers;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain.Fruit;
-import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.services.FruitService;
+import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.domain.Fruit;
+import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.services.FruitService;
 
 import jakarta.validation.*;
 

@@ -1,6 +1,6 @@
-package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.services;
+package cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.services;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.model.domain.*;
+import cat.itacademy.barcelonactiva.martos.sandra.s04.t02.n01.domain.Fruit;
 
 import java.util.*;
 
