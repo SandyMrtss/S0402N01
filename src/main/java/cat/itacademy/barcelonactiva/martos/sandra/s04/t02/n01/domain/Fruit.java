@@ -6,7 +6,6 @@ import jakarta.validation.constraints.*;
 @Entity
 @Table(name="fruits", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Fruit {
-    //TODO manage validation, always throws internal server error
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

@@ -64,7 +64,7 @@ public class FruitController {
         try{
             List<Fruit> fruits = fruitService.getAllFruit();
             if(fruits.isEmpty()){
-                return new ResponseEntity<>(HttpStatus. NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(fruits, HttpStatus.OK);
         }
