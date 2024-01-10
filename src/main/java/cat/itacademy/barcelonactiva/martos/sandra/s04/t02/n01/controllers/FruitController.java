@@ -30,9 +30,11 @@ public class FruitController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateFruit(@PathVariable("id") long id, @Valid @RequestBody Fruit fruit){
+    public ResponseEntity<String> updateFruit(@PathVariable("id") long id, @RequestBody Fruit fruit){
         Fruit _fruit = fruitService.getOneFruit(id);
-        _fruit.setName(fruit.getName());
+        if (fruit.getName() != null){
+            _fruit.setName(fruit.getName());
+        }
         _fruit.setAmountKg(fruit.getAmountKg());
         if(fruitService.updateFruit(_fruit)){
             return new ResponseEntity<>("Fruit successfully updated", HttpStatus.OK);
