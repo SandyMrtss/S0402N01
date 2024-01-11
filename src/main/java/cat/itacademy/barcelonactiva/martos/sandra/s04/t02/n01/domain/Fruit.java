@@ -50,18 +50,4 @@ public class Fruit {
         this.amountKg = amountKg;
     }
 
-    @Override
-    public boolean equals(Object obj){
-        Fruit fruit = (Fruit) obj;
-        return fruit.getName().equals(this.name) && Objects.equals(fruit.getAmountKg(), this.amountKg);
-    }
-
-    @Override
-    public String toString() {
-        return "Fruit{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", amountKg=" + amountKg +
-                '}';
-    }
 }

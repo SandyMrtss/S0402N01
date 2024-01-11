@@ -17,23 +17,20 @@ public class FruitServiceImpl implements FruitService {
     private FruitRepository fruitRepository;
 
     @Override
-    public boolean addFruit(Fruit fruit) {
+    public void addFruit(Fruit fruit) {
         fruitRepository.save(fruit);
-        return true;
     }
 
     @Override
-    public boolean updateFruit(Fruit fruit) {
+    public void updateFruit(Fruit fruit) {
         fruitRepository.save(fruit);
-        return true;
     }
 
     @Override
-    public boolean deleteFruit(long id) {
+    public void deleteFruit(long id) {
         Optional<Fruit> fruit = fruitRepository.findById(id);
         if(fruit.isPresent()){
             fruitRepository.deleteById(id);
-            return true;
         }
         else{
             throw new EntityNotFoundException();
