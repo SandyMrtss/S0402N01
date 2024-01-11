@@ -7,13 +7,14 @@ import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.BindErrorUtils;
 
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex){
-        return ResponseEntity.badRequest().body("Input not valid\n" + ex.getMessage());
+        return ResponseEntity.badRequest().body("Input not valid\n" + BindErrorUtils.resolveAndJoin(ex.getFieldErrors()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
