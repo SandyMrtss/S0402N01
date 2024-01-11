@@ -31,7 +31,7 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> hadleGeneralException(Exception ex){
+    public ResponseEntity<String> handleGeneralException(Exception ex){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something unexpected went wrong\n" + ex.getMessage());
     }
 }
