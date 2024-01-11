@@ -32,12 +32,23 @@ public class FruitController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateFruit(@PathVariable("id") long id, @RequestBody Fruit fruit){
         Fruit _fruit = fruitService.getOneFruit(id);
-        if (fruit.getName() != null){
+        boolean updated = false;
+
+        if (fruit.getName() != null && !_fruit.getName().equals(fruit.getName())){
             _fruit.setName(fruit.getName());
+            updated = true;
         }
-        _fruit.setAmountKg(fruit.getAmountKg());
+        if(fruit.getAmountKg() != null && !_fruit.getAmountKg().equals(fruit.getAmountKg())){
+            _fruit.setAmountKg(fruit.getAmountKg());
+            updated = true;
+        }
         if(fruitService.updateFruit(_fruit)){
-            return new ResponseEntity<>("Fruit successfully updated", HttpStatus.OK);
+            if(updated){
+                return new ResponseEntity<>("Fruit successfully updated", HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>("No changes were made", HttpStatus.OK);
+            }
         }
         else {
             return new ResponseEntity<>("Something went wrong with the database server", HttpStatus.INTERNAL_SERVER_ERROR);

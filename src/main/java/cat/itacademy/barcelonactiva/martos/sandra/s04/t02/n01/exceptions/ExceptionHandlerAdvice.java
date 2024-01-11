@@ -18,7 +18,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleNotFoundException(EntityNotFoundException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No element found with id");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No element found with this id");
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handlePrimaryKeyViolation(DataIntegrityViolationException ex){
